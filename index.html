@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameBox | Play. Compete. Win.</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="logo">
+        🎮 <span>GameBox</span>
+    </div>
+
+    <nav>
+        <button onclick="showPage('home')">Home</button>
+        <button onclick="showPage('games')">Games</button>
+        <button onclick="showPage('leaderboard')">🏆</button>
+        <button onclick="showPage('premium')">👑</button>
+    </nav>
+
+    <div class="stats">
+        🪙 <span id="coins">0</span>
+        ⚡ <span id="xp">0</span>
+    </div>
+
+</header>
+
+
+<main>
+
+<!-- HOME -->
+
+<section id="home" class="page active">
+
+    <div class="hero">
+
+        <div class="hero-content">
+
+            <div class="badge">
+                🚀 THE NEXT LEVEL OF GAMING
+            </div>
+
+            <h1>
+                PLAY.<br>
+                <span>COMPETE.</span><br>
+                WIN.
+            </h1>
+
+            <p>
+                Discover exciting mini games,
+                earn XP, collect coins and climb
+                the leaderboard.
+            </p>
+
+            <div class="hero-buttons">
+
+                <button
+                    class="primary"
+                    onclick="showPage('games')">
+                    🎮 PLAY NOW
+                </button>
+
+                <button
+                    class="secondary"
+                    onclick="showPage('premium')">
+                    👑 PREMIUM
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-game">
+
+            <div class="game-orb">
+                🎮
+            </div>
+
+            <div class="floating-card card1">
+                🪙 +100
+            </div>
+
+            <div class="floating-card card2">
+                ⚡ XP +50
+            </div>
+
+            <div class="floating-card card3">
+                🏆 #1
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section-title">
+
+        <h2>🔥 Featured Games</h2>
+
+        <button onclick="showPage('games')">
+            View All →
+        </button>
+
+    </div>
+
+
+    <div class="game-grid">
+
+        <div
+            class="game-card"
+            onclick="openGame('clicker')">
+
+            <div class="game-icon">
+                ⚡
+            </div>
+
+            <h3>Quick Click</h3>
+
+            <p>
+                Click as fast as you can!
+            </p>
+
+            <span>
+                🪙 Earn Coins
+            </span>
+
+        </div>
+
+
+        <div
+            class="game-card"
+            onclick="openGame('lucky')">
+
+            <div class="game-icon">
+                🎯
+            </div>
+
+            <h3>Lucky Number</h3>
+
+            <p>
+                Can you guess the number?
+            </p>
+
+            <span>
+                🏆 Challenge
+            </span>
+
+        </div>
+
+
+        <div
+            class="game-card"
+            onclick="openGame('coin')">
+
+            <div class="game-icon">
+                🪙
+            </div>
+
+            <h3>Coin Rush</h3>
+
+            <p>
+                Collect as many coins as possible.
+            </p>
+
+            <span>
+                ⚡ Fast Game
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- GAMES -->
+
+<section id="games" class="page">
+
+    <div class="page-heading">
+
+        <h1>🎮 Game Library</h1>
+
+        <p>
+            Choose your challenge.
+        </p>
+
+    </div>
+
+
+    <input
+        id="search"
+        class="search"
+        type="text"
+        placeholder="🔎 Search games..."
+        oninput="searchGames()"
+    >
+
+
+    <div class="categories">
+
+        <button onclick="filterGames('all')">
+            All
+        </button>
+
+        <button onclick="filterGames('action')">
+            ⚡ Action
+        </button>
+
+        <button onclick="filterGames('arcade')">
+            🕹️ Arcade
+        </button>
+
+        <button onclick="filterGames('casual')">
+            🎯 Casual
+        </button>
+
+    </div>
+
+
+    <div id="gameLibrary" class="game-grid">
+
+
+        <div
+            class="game-card"
+            data-category="arcade"
+            data-name="Quick Click"
+            onclick="openGame('clicker')">
+
+            <div class="game-icon">
+                ⚡
+            </div>
+
+            <h3>
+                Quick Click
+            </h3>
+
+            <p>
+                How fast are your fingers?
+            </p>
+
+            <button class="play-btn">
+                PLAY
+            </button>
+
+        </div>
+
+
+
+        <div
+            class="game-card"
+            data-category="casual"
+            data-name="Lucky Number"
+            onclick="openGame('lucky')">
+
+            <div class="game-icon">
+                🎯
+            </div>
+
+            <h3>
+                Lucky Number
+            </h3>
+
+            <p>
+                Guess the secret number.
+            </p>
+
+            <button class="play-btn">
+                PLAY
+            </button>
+
+        </div>
+
+
+
+        <div
+            class="game-card"
+            data-category="action"
+            data-name="Coin Rush"
+            onclick="openGame('coin')">
+
+            <div class="game-icon">
+                🪙
+            </div>
+
+            <h3>
+                Coin Rush
+            </h3>
+
+            <p>
+                Collect coins before time runs out.
+            </p>
+
+            <button class="play-btn">
+                PLAY
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- LEADERBOARD -->
+
+<section id="leaderboard" class="page">
+
+    <div class="page-heading">
+
+        <h1>
+            🏆 Leaderboard
+        </h1>
+
+        <p>
+            Top players this season.
+        </p>
+
+    </div>
+
+
+    <div class="leaderboard">
+
+        <div class="player first">
+
+            <b>🥇</b>
+
+            <span>
+                ShadowX
+            </span>
+
+            <strong>
+                12,840 XP
+            </strong>
+
+        </div>
+
+
+        <div class="player second">
+
+            <b>🥈</b>
+
+            <span>
+                CyberFox
+            </span>
+
+            <strong>
+                10,920 XP
+            </strong>
+
+        </div>
+
+
+        <div class="player third">
+
+            <b>🥉</b>
+
+            <span>
+                GameMaster
+            </span>
+
+            <strong>
+                9,870 XP
+            </strong>
+
+        </div>
+
+
+        <div class="player you">
+
+            <b>
+                #?
+            </b>
+
+            <span>
+                You
+            </span>
+
+            <strong id="leaderXP">
+                0 XP
+            </strong>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- PREMIUM -->
+
+<section id="premium" class="page">
+
+    <div class="premium-box">
+
+        <div class="premium-icon">
+            👑
+        </div>
+
+        <h1>
+            GameBox Premium
+        </h1>
+
+        <p>
+            Unlock the ultimate GameBox experience.
+        </p>
+
+
+        <div class="premium-features">
+
+            <div>
+                ✨ No Ads
+            </div>
+
+            <div>
+                🎮 Exclusive Games
+            </div>
+
+            <div>
+                🪙 Bonus Coins
+            </div>
+
+            <div>
+                🏆 Premium Badge
+            </div>
+
+            <div>
+                ⚡ 2× XP
+            </div>
+
+        </div>
+
+
+        <button
+            class="primary"
+            onclick="premiumMessage()">
+
+            👑 COMING SOON
+
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- GAME MODAL -->
+
+<div id="gameModal" class="modal">
+
+    <div class="modal-box">
+
+        <button
+            class="close"
+            onclick="closeGame()">
+            ✕
+        </button>
+
+        <div id="gameArea"></div>
+
+    </div>
+
+</div>
+
+</main>
+
+
+
+<footer>
+
+    <p>
+        🎮 GameBox © 2026
+    </p>
+
+    <p>
+        Play • Compete • Have Fun
+    </p>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
