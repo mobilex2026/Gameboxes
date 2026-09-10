@@ -1,0 +1,321 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background:
+        radial-gradient(circle at top, #202040, #080812 65%);
+    color: white;
+    min-height: 100vh;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 10, 25, 0.95);
+    border-bottom: 1px solid #34345c;
+    padding: 15px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.logo span {
+    color: #00e5ff;
+}
+
+nav {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+nav button {
+    background: #17172d;
+    border: 1px solid #34345c;
+    color: white;
+    padding: 9px 13px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+nav button:hover {
+    background: #24244a;
+}
+
+.user-box {
+    text-align: center;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+main {
+    width: 90%;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.page {
+    display: none;
+    padding: 50px 0;
+    min-height: 650px;
+}
+
+.page.active {
+    display: block;
+}
+
+.hero {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.tag {
+    color: #00e5ff;
+    letter-spacing: 4px;
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    font-size: clamp(40px, 8vw, 80px);
+    margin-bottom: 20px;
+}
+
+.hero h1 span {
+    color: #00e5ff;
+    text-shadow: 0 0 25px #00e5ff;
+}
+
+.hero p {
+    color: #bbb;
+    font-size: 18px;
+}
+
+.main-btn {
+    margin-top: 30px;
+    padding: 16px 35px;
+    border: none;
+    border-radius: 14px;
+    background: #00e5ff;
+    color: #071015;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.main-btn:hover {
+    transform: scale(1.05);
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.stat {
+    background: #121225;
+    border: 1px solid #303052;
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+}
+
+.stat b {
+    display: block;
+    color: #00e5ff;
+    font-size: 30px;
+}
+
+.stat small {
+    color: #aaa;
+}
+
+.ad-box {
+    margin-top: 30px;
+    padding: 35px;
+    text-align: center;
+    border: 1px dashed #555;
+    border-radius: 15px;
+    color: #888;
+}
+
+.ad-box small {
+    display: block;
+    margin-top: 8px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 32px;
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.game-card {
+    background: #121225;
+    border: 1px solid #303052;
+    border-radius: 18px;
+    padding: 25px;
+    text-align: center;
+    transition: 0.2s;
+}
+
+.game-card:hover {
+    transform: translateY(-6px);
+    border-color: #00e5ff;
+}
+
+.game-icon {
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+
+.game-card h3 {
+    font-size: 23px;
+    margin-bottom: 10px;
+}
+
+.game-card p {
+    color: #aaa;
+    min-height: 45px;
+}
+
+.game-card button,
+.premium-card button {
+    margin-top: 18px;
+    padding: 11px 25px;
+    border: none;
+    border-radius: 10px;
+    background: #00e5ff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.game-area {
+    margin-top: 30px;
+    min-height: 180px;
+    background: #10101e;
+    border: 1px solid #303052;
+    border-radius: 18px;
+    padding: 25px;
+    text-align: center;
+}
+
+.game-area button {
+    padding: 14px 25px;
+    border: none;
+    border-radius: 12px;
+    background: #00e5ff;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.click-number {
+    font-size: 60px;
+    color: #00e5ff;
+    margin: 20px;
+}
+
+.leaderboard {
+    max-width: 700px;
+    margin: auto;
+}
+
+.player {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 18px;
+    margin: 10px 0;
+    background: #121225;
+    border: 1px solid #303052;
+    border-radius: 14px;
+}
+
+.player strong {
+    margin-right: auto;
+    color: #00e5ff;
+}
+
+.me {
+    border-color: #00e5ff;
+}
+
+.premium-card {
+    max-width: 500px;
+    margin: auto;
+    padding: 40px;
+    text-align: center;
+    background: #14142b;
+    border: 1px solid #00e5ff;
+    border-radius: 25px;
+    box-shadow: 0 0 35px rgba(0, 229, 255, 0.15);
+}
+
+.crown {
+    font-size: 70px;
+}
+
+.premium-card h2 {
+    color: #00e5ff;
+}
+
+.premium-card li {
+    list-style: none;
+    padding: 10px;
+    color: #ccc;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    border-top: 1px solid #292943;
+    color: #777;
+}
+
+@media (max-width: 750px) {
+
+    header {
+        flex-direction: column;
+    }
+
+    .games-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        padding: 50px 10px;
+    }
+
+    nav {
+        width: 100%;
+    }
+
+    nav button {
+        flex: 1;
+    }
+}
