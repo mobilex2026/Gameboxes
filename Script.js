@@ -1,0 +1,471 @@
+let coins = Number(localStorage.getItem("gameboxCoins")) || 0;
+let xp = Number(localStorage.getItem("gameboxXP")) || 0;
+
+let clickScore = 0;
+let clickTimer = null;
+let luckyNumber = 0;
+let coinScore = 0;
+let coinTimer = null;
+
+
+// =========================
+// SAVE DATA
+// =========================
+
+function saveData() {
+    localStorage.setItem("gameboxCoins", coins);
+    localStorage.setItem("gameboxXP", xp);
+
+    document.getElementById("coins").textContent = coins;
+    document.getElementById("xp").textContent = xp;
+    document.getElementById("leaderXP").textContent = xp + " XP";
+}
+
+
+// =========================
+// REWARDS
+// =========================
+
+function addReward(c, x) {
+    coins += c;
+    xp += x;
+
+    saveData();
+}
+
+
+// =========================
+// PAGE SYSTEM
+// =========================
+
+function showPage(page) {
+
+    document.querySelectorAll(".page").forEach(p => {
+        p.classList.remove("active");
+    });
+
+    const target = document.getElementById(page);
+
+    if (target) {
+        target.classList.add("active");
+    }
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+// =========================
+// OPEN GAME
+// =========================
+
+function openGame(game) {
+
+    const modal = document.getElementById("gameModal");
+    const area = document.getElementById("gameArea");
+
+    modal.classList.add("show");
+
+
+    // =====================
+    // QUICK CLICK
+    // =====================
+
+    if (game === "clicker") {
+
+        clearInterval(clickTimer);
+
+        clickScore = 0;
+
+        area.innerHTML = `
+            <h2 class="game-title">
+                ⚡ Quick Click
+            </h2>
+
+            <p>
+                Click as fast as you can!
+            </p>
+
+            <div class="big-number" id="clickScore">
+                0
+            </div>
+
+            <button
+                class="game-button"
+                id="clickButton">
+                CLICK!
+            </button>
+
+            <br><br>
+
+            <p id="clickTime">
+                Time: 10s
+            </p>
+        `;
+
+
+        let time = 10;
+
+        document.getElementById("clickButton").onclick = function () {
+
+            clickScore++;
+
+            document.getElementById("clickScore")
+                .textContent = clickScore;
+        };
+
+
+        clickTimer = setInterval(() => {
+
+            time--;
+
+            document.getElementById("clickTime")
+                .textContent = "Time: " + time + "s";
+
+
+            if (time <= 0) {
+
+                clearInterval(clickTimer);
+
+                const reward =
+                    clickScore * 2;
+
+                addReward(
+                    reward,
+                    clickScore
+                );
+
+
+                area.innerHTML = `
+                    <h2 class="game-title">
+                        🎉 Finished!
+                    </h2>
+
+                    <div class="big-number">
+                        ${clickScore}
+                    </div>
+
+                    <p>
+                        You earned 🪙
+                        ${reward}
+                        coins!
+                    </p>
+
+                    <br>
+
+                    <button
+                        class="game-button"
+                        onclick="openGame('clicker')">
+                        PLAY AGAIN
+                    </button>
+                `;
+            }
+
+        }, 1000);
+    }
+
+
+
+    // =====================
+    // LUCKY NUMBER
+    // =====================
+
+    if (game === "lucky") {
+
+        luckyNumber =
+            Math.floor(Math.random() * 10) + 1;
+
+
+        area.innerHTML = `
+            <h2 class="game-title">
+                🎯 Lucky Number
+            </h2>
+
+            <p>
+                Guess a number between 1 and 10.
+            </p>
+
+            <input
+                id="guessInput"
+                type="number"
+                min="1"
+                max="10"
+                placeholder="Your guess"
+                style="
+                    padding:15px;
+                    margin:20px;
+                    width:150px;
+                    border-radius:10px;
+                    border:1px solid #444;
+                    background:#19192c;
+                    color:white;
+                "
+            >
+
+            <br>
+
+            <button
+                class="game-button"
+                onclick="checkLucky()">
+                GUESS
+            </button>
+
+            <br><br>
+
+            <p id="luckyResult"></p>
+        `;
+    }
+
+
+
+    // =====================
+    // COIN RUSH
+    // =====================
+
+    if (game === "coin") {
+
+        clearInterval(coinTimer);
+
+        coinScore = 0;
+
+        area.innerHTML = `
+            <h2 class="game-title">
+                🪙 Coin Rush
+            </h2>
+
+            <p>
+                Collect coins before time runs out!
+            </p>
+
+            <div class="big-number"
+                 id="coinScore">
+                0
+            </div>
+
+            <button
+                class="game-button"
+                id="coinButton">
+                🪙 COLLECT
+            </button>
+
+            <br><br>
+
+            <p id="coinTime">
+                Time: 15s
+            </p>
+        `;
+
+
+        let time = 15;
+
+
+        document.getElementById("coinButton")
+            .onclick = function () {
+
+                coinScore++;
+
+                document.getElementById("coinScore")
+                    .textContent = coinScore;
+            };
+
+
+        coinTimer = setInterval(() => {
+
+            time--;
+
+            document.getElementById("coinTime")
+                .textContent =
+                "Time: " + time + "s";
+
+
+            if (time <= 0) {
+
+                clearInterval(coinTimer);
+
+                addReward(
+                    coinScore,
+                    coinScore * 2
+                );
+
+
+                area.innerHTML = `
+                    <h2 class="game-title">
+                        🏆 Time's Up!
+                    </h2>
+
+                    <div class="big-number">
+                        ${coinScore}
+                    </div>
+
+                    <p>
+                        You collected
+                        ${coinScore}
+                        coins!
+                    </p>
+
+                    <br>
+
+                    <button
+                        class="game-button"
+                        onclick="openGame('coin')">
+                        PLAY AGAIN
+                    </button>
+                `;
+            }
+
+        }, 1000);
+    }
+}
+
+
+// =========================
+// LUCKY CHECK
+// =========================
+
+function checkLucky() {
+
+    const input =
+        document.getElementById("guessInput");
+
+    const result =
+        document.getElementById("luckyResult");
+
+    const guess =
+        Number(input.value);
+
+
+    if (!guess || guess < 1 || guess > 10) {
+
+        result.textContent =
+            "⚠️ Enter a number from 1 to 10.";
+
+        return;
+    }
+
+
+    if (guess === luckyNumber) {
+
+        addReward(25, 50);
+
+        result.innerHTML =
+            "🎉 CORRECT! +25 🪙 +50 XP";
+
+    } else {
+
+        result.innerHTML =
+            "❌ Wrong! The number was " +
+            luckyNumber;
+
+    }
+}
+
+
+// =========================
+// SEARCH
+// =========================
+
+function searchGames() {
+
+    const input =
+        document.getElementById("search");
+
+    const value =
+        input.value.toLowerCase();
+
+
+    document.querySelectorAll(
+        "#gameLibrary .game-card"
+    ).forEach(card => {
+
+        const name =
+            card.dataset.name.toLowerCase();
+
+        card.style.display =
+            name.includes(value)
+                ? "block"
+                : "none";
+    });
+}
+
+
+// =========================
+// FILTER
+// =========================
+
+function filterGames(category) {
+
+    document.querySelectorAll(
+        "#gameLibrary .game-card"
+    ).forEach(card => {
+
+        if (
+            category === "all" ||
+            card.dataset.category === category
+        ) {
+
+            card.style.display = "block";
+
+        } else {
+
+            card.style.display = "none";
+        }
+    });
+}
+
+
+// =========================
+// PREMIUM
+// =========================
+
+function premiumMessage() {
+
+    alert(
+        "👑 GameBox Premium is coming soon!"
+    );
+}
+
+
+// =========================
+// CLOSE GAME
+// =========================
+
+function closeGame() {
+
+    clearInterval(clickTimer);
+    clearInterval(coinTimer);
+
+    document.getElementById("gameModal")
+        .classList.remove("show");
+}
+
+
+// =========================
+// CLOSE WITH BACKGROUND
+// =========================
+
+document.getElementById("gameModal")
+    .addEventListener("click", function(e) {
+
+        if (e.target === this) {
+            closeGame();
+        }
+
+    });
+
+
+// =========================
+// START
+// =========================
+
+saveData();
+// 👥 GameBox Visitor Counter
+fetch("https://visitor.6developer.com/api/visit/GameBox")
+  .then(response => response.json())
+  .then(data => {
+    console.log("GameBox visitors:", data);
+  })
+  .catch(error => {
+    console.log("Visitor counter error:", error);
+  });
